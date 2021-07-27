@@ -1,9 +1,9 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router } from "react-router-dom"
-import { KardKings } from "./KardKings"
+import { KardKings } from "./KardKings.js"
 
-ReactDOM.render(
+ReactDOM.render (
   <React.StrictMode>
     <Router>
       <KardKings />

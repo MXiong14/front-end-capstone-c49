@@ -1,29 +1,29 @@
 import React from "react"
-import { BaseballCard } from "./Baseball/BaseballCard"
-import { BasketballCard } from "./Basketball/BasketballCard"
-import { FootballCard } from "./Football/FootballCard"
-import { SoccerCard } from "./Soccer/SoccerCard"
+import { BaseballCard } from "./Baseball/BaseballCard.js"
+import { BasketballCard } from "./Basketball/BasketballCard.js"
+import { FootballCard } from "./Football/FootballCard.js"
+import { SoccerCard } from "./Soccer/SoccerCard.js"
 import "./Home.css"
 
 export const Home = () => (
     <>
         <h2>Kard Kings</h2>
-        <small>Bringing your collection to the web.</small>
+        <p>Bringing your collection to the web.</p>
 
-        <h2>Sports</h2>
-        <article className="baseballs">
-            <BaseballCard />
-        </article>    
-        <article className="basketballs">
-            <BasketballCard />
-        </article>    
-        <article className="footballs">
-            <FootballCard />
-        </article>
-        <article className="soocers">
-           <SoccerCard /> 
-        </article>
-
-        
+        <section className="sport_type">
+            <article>
+                <BaseballCard />
+            </article>    
+            <article>
+                <BasketballCard />
+            </article>    
+            <article>
+                <FootballCard />
+            </article>
+            <article>
+                <SoccerCard /> 
+            </article>
+        </section>
     </>
-)
+);
+
