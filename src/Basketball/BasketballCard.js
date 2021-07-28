@@ -1,7 +1,13 @@
 import React from "react"
-
-export const BasketballCard = () => (
+import { Link } from "react-router-dom"
+//this renders the cards one by one
+export const BasketballCard = ({ basketball }) => (
     <section className="basketball">
-        <h3 className="sport_name">Basketball</h3>
+        <h3 className="basketball_name">
+          <Link to={ `/basketballs/detail/${basketball.id}` }>
+            { basketball.playerName }
+          </Link>
+        </h3>
+        <div className="teamName"> {basketball.teamName}</div>
     </section>
 )
