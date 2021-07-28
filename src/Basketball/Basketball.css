@@ -1,13 +1,12 @@
-.baseballs {
+.basketballs {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
   
-  .baseball {
+  .basketball {
       flex-basis: 25%;
       margin: 1em;
       padding: 1em;
       border: 3px solid black;
   }
-  
