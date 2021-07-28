@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { BaseballContext } from "./BaseballProvider"
 import { useParams, useHistory } from "react-router-dom"
+import "./Baseball.css"
 //this module has the necessary details to render the details of events when you click on their titles on the main page. then, you will be able to delete an event or edit an existing event.
 export const BaseballDetail = () => {
 
@@ -15,7 +16,7 @@ const { getBaseballById, deleteBaseball } = useContext(BaseballContext)
 const handleDelete = () => {
     deleteBaseball(baseballObj.id)
       .then(() => {
-        history.push("/baseballs")
+        history.push("/baseball")
       })
   }
 
@@ -41,7 +42,7 @@ const handleDelete = () => {
       <div className="imageURL">ImageURL {baseballObj.imageURL}</div>
       <button onClick={handleDelete}>Remove card</button>
       <button onClick={() => {
-        history.push(`/baseballs/edit/${baseballObj.id}`)
+        history.push(`/baseball/edit/${baseballObj.id}`)
         }}>Edit info</button>
 
     </section>

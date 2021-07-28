@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { BaseballContext } from "./BaseballProvider"
 import { BaseballCard } from "./BaseballCard"
 import { useHistory } from "react-router-dom"
+import "./Baseball.css"
 
 export const BaseballList = () => {
   const { baseballs, getBaseballs, searchTerms } = useContext(BaseballContext)
