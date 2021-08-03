@@ -15,14 +15,46 @@ export const BaseballForm = () => {
     cardNumber: "",
     grade: "",
     quantity: "",
-    dateEntered: "",
-    imageURL: ""
+    dateEntered: ""
+    
   });
 
   useEffect(() => {
     getBaseballs()
 }, [])
 
+ // useState is an react hook that lets you add react state to function components. One holds the image to be uploaded 
+ // and the other to hold the image url after it's been uploaded to cloudinary.
+
+  const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
+
+  // uploadImage funciton will be called once the upload button is clicked. 
+  // FormData provides a way to easily construct a set of key/value pairs representing form fields and
+  // their values, which can then be easily sent to the server.  
+  // file is pointing to image, upload_preset is pointing to upload preset name 
+  // cloud_name is pointing to your cloudinary dashboard name. 
+  // fetch post request to cloudinary endpoint. 
+  // appened method of FormData appends a new value onto an an exisiting key inside of FormData object.
+
+  const uploadImage = (event) => {
+    event.preventDefault()
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "CapstoneCards");
+    data.append("cloud_name", "kardkingsapi");
+    fetch(" https://api.cloudinary.com/v1_1/kardkingsapi/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setUrl(data.url);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  
   const [isLoading, setIsLoading] = useState(true);
   const { baseballId } = useParams();
   const history = useHistory();
@@ -58,7 +90,7 @@ export const BaseballForm = () => {
           grade: baseball.grade,
           quantity: baseball.quantity,
           dateEntered: baseball.dateEntered,
-          imageURL: baseball.imageURL 
+          imageURL: url
       }, baseballId)
       .then(() => history.push(`/baseball/detail/${baseballId}`))
     } else {
@@ -73,7 +105,7 @@ export const BaseballForm = () => {
           grade: baseball.grade,
           quantity: baseball.quantity,
           dateEntered: baseball.dateEntered,
-          imageURL: baseball.imageURL 
+          imageURL: url 
       })
       .then(() => history.push("/baseball"))
     }
@@ -85,6 +117,7 @@ export const BaseballForm = () => {
         getBaseballById(baseballId)
         .then(baseball => {
             setBaseball(baseball)
+            setUrl(baseball.imageURL)
             setIsLoading(false)
         })
       } else {
@@ -92,6 +125,7 @@ export const BaseballForm = () => {
       }
     })
   }, [])
+
 
     return (
       <form className="baseballForm">
@@ -177,15 +211,27 @@ export const BaseballForm = () => {
             defaultValue={baseball.dateEntered}/>
           </div>
         </fieldset>
-        <fieldset>
+         {/* <fieldset>
           <div className="form-group">
-            <label htmlFor="imageURLLabel">imageURL: </label>
+           <label htmlFor="imageURLLabel"> </label>
             <input type="url" id="imageURL" name="imageURLBaseball" required autoFocus className="form-control"
             placeholder="imageURL"
             onChange={handleControlledInputChange}
             defaultValue={baseball.imageURL}/>
           </div>
-        </fieldset>
+         </fieldset>  */}
+        <div>
+      <div>
+        <input
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
+        ></input>
+        <button onClick={uploadImage}>Upload</button>
+      </div>
+      <div>
+        <img src={url} />
+      </div>
+    </div>
         <button className="btn btn-primary"
           disabled={isLoading}
           onClick={event => {

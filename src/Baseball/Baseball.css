@@ -5,9 +5,18 @@
   }
   
   .baseball {
-      flex-basis: 25%;
-      margin: 1em;
-      padding: 1em;
-      border: 3px solid black;
+    flex-basis: 25%;
+    margin: 1em;
+    padding: 1em;
+    border: 3px solid black;
+}
+
+
+  .playerImage {
+   position: absolute;
+   top: 67px;
+   right: 500px;
+    max-width: 230px;
+   max-height: 230px;
+
   }
-  

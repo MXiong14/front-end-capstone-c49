@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react"
 import { BaseballContext } from "./BaseballProvider"
 import { useParams, useHistory } from "react-router-dom"
 import "./Baseball.css"
-//this module has the necessary details to render the details of events when you click on their titles on the main page. then, you will be able to delete an event or edit an existing event.
+//this module has the necessary details to render the details of each card when you click on their titles on the main page. 
+//then, you will be able to delete a card or edit an existing card.
 export const BaseballDetail = () => {
 
 const { getBaseballById, deleteBaseball } = useContext(BaseballContext)
@@ -10,10 +11,11 @@ const { getBaseballById, deleteBaseball } = useContext(BaseballContext)
 
 	const [baseballObj, setBaseball] = useState({})
 
+
 	const {baseballId} = useParams();
 	const history = useHistory();
 
-const handleDelete = () => {
+  const handleDelete = () => {
     deleteBaseball(baseballObj.id)
       .then(() => {
         history.push("/baseball")
@@ -39,11 +41,14 @@ const handleDelete = () => {
       <div className="grade">Grade: {baseballObj.grade}</div>
       <div className="quantity">Quantity: {baseballObj.quantity}</div>
       <div className="dateEntered">Date Entered: {baseballObj.dateEntered}</div>
-      <div className="imageURL">ImageURL {baseballObj.imageURL}</div>
+      <img className="playerImage" src={`${baseballObj.imageURL}`} alt={baseballObj.playerName} />
       <button onClick={handleDelete}>Remove card</button>
       <button onClick={() => {
         history.push(`/baseball/edit/${baseballObj.id}`)
         }}>Edit info</button>
+      <button onClick={() => {
+        history.push(`/baseball`)
+        }}>Back to collection</button>
 
     </section>
   )

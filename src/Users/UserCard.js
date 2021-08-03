@@ -5,6 +5,7 @@ export const UserCard = ({ user }) => (
     <section>
         <Link to={`/users/detail/${user.id}`}>
             {user.name}
+            {user.email}
         </Link>
     </section>
 )

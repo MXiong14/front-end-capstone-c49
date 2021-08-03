@@ -5,7 +5,7 @@ export const BaseballContext = createContext()
 
 // This component establishes what data can be used.
 export const BaseballProvider = (props) => {
-    const [ baseballs, setBaseballs ] = useState([])
+    const [baseballs, setBaseballs] = useState([])
     const [ searchTerms, setSearchTerms ] = useState("")
 
     const getBaseballs = () => {

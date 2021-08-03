@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useContext } from "react"
 import { Link, useHistory } from "react-router-dom";
+import { UserContext } from "../Users/UserProvider";
 import "./Login.css"
 
 
 export const Login = () => {
     const [loginUser, setLoginUser] = useState({ email: "" })
     const [existDialog, setExistDialog] = useState(false)
+    const { setLoggedInState } = useContext(UserContext)
 
     const history = useHistory()
 
@@ -31,6 +33,7 @@ export const Login = () => {
                 if (exists) {
                     // The user id is saved under the key kard_king_user in session storage. Change below if needed!
                     sessionStorage.setItem("kard_king_user", exists.id)
+                    setLoggedInState(true)
                     history.push("/")
                 } else {
                     setExistDialog(true)
