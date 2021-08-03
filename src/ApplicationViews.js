@@ -9,6 +9,8 @@ import { BasketballForm } from "./Basketball/BasketballForm"
 import { BasketballList } from "./Basketball/BasketballList"
 import { BasketballDetail } from "./Basketball/BasketballDetail"
 import { BasketballProvider } from "./Basketball/BasketballProvider"
+import { Login } from "./Auth/Login"
+import { Register } from "./Auth/Register"
 
 
 
@@ -22,7 +24,6 @@ export const ApplicationViews = () => {
             <Route exact path="/">
                 <Home />
             </Route>
-
       
       <Route exact path="/baseball">
         <BaseballList />

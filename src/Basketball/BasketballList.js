@@ -33,7 +33,7 @@ console.log(filteredBasketballs)
 
   return (
     <>
-      <h1>Basketball Cards</h1>
+      <h2>Basketball Cards</h2>
       <div className="basketballs">
       <button onClick={() => history.push("/basketball/create")}>
           Click here to add a new card

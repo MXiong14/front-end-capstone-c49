@@ -22,8 +22,7 @@ export const KardKings = () => (
         }
       }}
     />
-
-    <Route path="/login">
+  <Route path="/login">
       <Login />
     </Route>
     <Route path="/register">
