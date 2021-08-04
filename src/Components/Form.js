@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams } from 'react-router-dom';
-import { BaseballContext } from "./BaseballProvider"
+import { CardsContext } from "../Provider/SportProvider"
+import { SportNameContext } from "../Provider/SportNameProvider";
 import "./Baseball.css"
 
-export const BaseballForm = () => {
-  const { addBaseball, getBaseballById, getBaseballs, updateBaseball } = useContext(BaseballContext)
+export const Form = () => {
+  const { addCard, getCardById, getCards, updateCards } = useContext(CardsContext)
 
-  const [baseball, setBaseball] = useState({
+  const [card, setCard] = useState({
     playerName: "",
+    sportNameId: "",
     teamName: "",
     year: "",
     brand: "",
@@ -18,9 +20,28 @@ export const BaseballForm = () => {
     dateEntered: ""
     
   });
-
+  
+  var sportName = [
+    {
+      "id": 1,
+      "title": "Baseball"
+    },
+    {
+      "id": 2,
+      "title": "Soccer"
+    },
+    {
+      "id": 3,
+      "title": "Basketball"
+    },
+    {
+      "id": 4,
+      "title": "Football"
+    }
+  ]
   useEffect(() => {
-    getBaseballs()
+    getCards() 
+    console.log(card)
 }, [])
 
  // useState is an react hook that lets you add react state to function components. One holds the image to be uploaded 
@@ -56,68 +77,67 @@ export const BaseballForm = () => {
 
   
   const [isLoading, setIsLoading] = useState(true);
-  const { baseballId } = useParams();
+  const { cardId } = useParams();
   const history = useHistory();
 
-  const handleControlledInputChange = (controlBaseball) => {
-    const newBaseball = { ...baseball }
-    let selectedVal = controlBaseball.target.value
+  const handleControlledInputChange = (controlCard) => {
+    const newCard = { ...card }
+    let selectedVal = controlCard.target.value
         
-    if (controlBaseball.target.id.includes("Id")) {
+    if (controlCard.target.id.includes("Id")) {
      selectedVal = parseInt(selectedVal)
     }
-     newBaseball[controlBaseball.target.id] = selectedVal
-     setBaseball(newBaseball)
+     newCard[controlCard.target.id] = selectedVal
+     setCard(newCard)
   }
 
   // const newArticle = { ...article }
   // newArticle[event.target.id] = event.target.value
   // setArticle(newArticle)
 
-  const handleSaveBaseball = (controlBaseball) => {
-    
-  
-    if (baseballId) {
-      //PUT - update
-      updateBaseball({
-          id: baseball.id,
-          playerName: baseball.playerName,
-          teamName: baseball.teamName,
-          year: baseball.year,
-          brand: baseball.brand,
-          subBrand: baseball.subBrand,
-          cardNumber: baseball.cardNumber,
-          grade: baseball.grade,
-          quantity: baseball.quantity,
-          dateEntered: baseball.dateEntered,
+  const handleSaveCard = (card) => {
+    if (cardId) {
+  updateCards ({
+          id: card.id,
+          playerName: card.playerName,
+          sportNameId: card.sportNameId,
+          teamName: card.teamName,
+          year: card.year,
+          brand: card.brand,
+          subBrand: card.subBrand,
+          cardNumber: card.cardNumber,
+          grade: card.grade,
+          quantity: card.quantity,
+          dateEntered: card.dateEntered,
           imageURL: url
-      }, baseballId)
-      .then(() => history.push(`/baseball/detail/${baseballId}`))
+      }, cardId)
+      .then(() => history.push(`/sports/detail/${cardId}`))
     } else {
-      //POST - add
-      addBaseball({
-        playerName: baseball.playerName,
-          teamName: baseball.teamName,
-          year: baseball.year,
-          brand: baseball.brand,
-          subBrand: baseball.subBrand,
-          cardNumber: baseball.cardNumber,
-          grade: baseball.grade,
-          quantity: baseball.quantity,
-          dateEntered: baseball.dateEntered,
+
+      addCard({
+        playerName: card.playerName,
+        sportNameId: card.sportNameId,
+          teamName: card.teamName,
+          year: card.year,
+          brand: card.brand,
+          subBrand: card.subBrand,
+          cardNumber: card.cardNumber,
+          grade: card.grade,
+          quantity: card.quantity,
+          dateEntered: card.dateEntered,
           imageURL: url 
       })
-      .then(() => history.push("/baseball"))
+      .then(() => history.push("/"))
     }
   }
 
   useEffect(() => {
-    getBaseballs().then(() => {
-      if (baseballId) {
-        getBaseballById(baseballId)
-        .then(baseball => {
-            setBaseball(baseball)
-            setUrl(baseball.imageURL)
+    getCards().then(() => {
+      if (cardId) {
+        getCardById(cardId)
+        .then(card => {
+            setCard(card)
+            setUrl(card.imageURL)
             setIsLoading(false)
         })
       } else {
@@ -128,15 +148,28 @@ export const BaseballForm = () => {
 
 
     return (
-      <form className="baseballForm">
-        <h2 className="baseballForm__title">{baseballId ? "Edit Card" : "Add Card" }</h2>
+      <form className="Form">
+        <h2 className="Form__title">{cardId ? "Edit Card" : "Add A Card" }</h2>
         <fieldset>
           <div className="form-group">
             <label htmlFor="playerNameLabel">Player Name: </label>
             <input type="text" id="playerName" name="playerNameBaseball" required autoFocus className="form-control"
             placeholder="Player Name"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.playerName}/>
+            defaultValue={card.playerName}/>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div className="form-group">
+            <label htmlFor="sportLabel">Select A Sport: </label>
+            <select value={card.sportNameTitle} name="sportNameId" id="sportNameId" className="form-control" onChange={handleControlledInputChange}>
+              <option value="0">Select A Sport</option>
+              {sportName.map(element => (
+                <option key={element.id} value={element.id}>
+                {element.title} 
+                </option>
+              ))}
+            </select>
           </div>
         </fieldset>
         <fieldset>
@@ -145,7 +178,7 @@ export const BaseballForm = () => {
             <input type="text" id="teamName" name="teamNameBaseball" required autoFocus className="form-control"
             placeholder="Team Name"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.teamName}/>
+            defaultValue={card.teamName}/>
           </div>
         </fieldset>
         <fieldset>
@@ -154,7 +187,7 @@ export const BaseballForm = () => {
             <input type="text" id="year" name="yearBaseball" required autoFocus className="form-control"
             placeholder="Year"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.year}/>
+            defaultValue={card.year}/>
           </div>
         </fieldset>
         <fieldset>
@@ -163,7 +196,7 @@ export const BaseballForm = () => {
             <input type="text" id="brand" name="brandBaseball" required autoFocus className="form-control"
             placeholder="Brand"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.brand}/>
+            defaultValue={card.brand}/>
           </div>
         </fieldset>
         <fieldset>
@@ -172,7 +205,7 @@ export const BaseballForm = () => {
             <input type="text" id="subBrand" name="subBrandBaseball" required autoFocus className="form-control"
             placeholder="Sub Brand"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.subBrand}/>
+            defaultValue={card.subBrand}/>
           </div>
         </fieldset>
         <fieldset>
@@ -181,7 +214,7 @@ export const BaseballForm = () => {
             <input type="text" id="cardNumber" name="cardNumberBaseball" required autoFocus className="form-control"
             placeholder="Card Number"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.cardNumber}/>
+            defaultValue={card.cardNumber}/>
           </div>
         </fieldset>
         <fieldset>
@@ -190,7 +223,7 @@ export const BaseballForm = () => {
             <input type="text" id="grade" name="gradeBaseball" required autoFocus className="form-control"
             placeholder="Grade"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.grade}/>
+            defaultValue={card.grade}/>
           </div>
         </fieldset>
         <fieldset>
@@ -199,7 +232,7 @@ export const BaseballForm = () => {
             <input type="text" id="quantity" name="quantityBaseball" required autoFocus className="form-control"
             placeholder="Quantity"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.quantity}/>
+            defaultValue={card.quantity}/>
           </div>
         </fieldset>
         <fieldset>
@@ -208,7 +241,7 @@ export const BaseballForm = () => {
             <input type="date" id="dateEntered" name="dateEnteredBaseball" required autoFocus className="form-control"
             placeholder="Date Entered"
             onChange={handleControlledInputChange}
-            defaultValue={baseball.dateEntered}/>
+            defaultValue={card.dateEntered}/>
           </div>
         </fieldset>
          {/* <fieldset>
@@ -236,9 +269,9 @@ export const BaseballForm = () => {
           disabled={isLoading}
           onClick={event => {
             event.preventDefault() // Prevent browser from submitting the form and refreshing the page
-            handleSaveBaseball(baseball)
+            handleSaveCard(card);
           }}>
-        {baseballId ? "Save Card" : "Add Card" }</button>
+        {cardId ? "Save Card" : "Add Card" }</button>
       </form>
     )
 }
