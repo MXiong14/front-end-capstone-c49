@@ -12,7 +12,7 @@ export const NavBar = (props) => {
 
     const Logout = () => {
       window.sessionStorage.clear();
-      setLoggedInState(false);
+      setLoggedInState(null);
       history.push("/");
     };
 

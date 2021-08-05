@@ -1,10 +1,10 @@
-.baseballs {
+.cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
   
-  .baseball {
+  .card {
     flex-basis: 25%;
     margin: 1em;
     padding: 1em;

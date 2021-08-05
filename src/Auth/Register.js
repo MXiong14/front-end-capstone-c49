@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import "./Login.css"
 
-export const Register = () => {
+export const Register = (props) => {
 
     const [registerUser, setRegisterUser] = useState({ firstName: "", lastName: "", email: "" })
     const [conflictDialog, setConflictDialog] = useState(false)

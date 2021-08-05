@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { CardsContext } from "../Provider/SportProvider"
 import { useParams, useHistory } from "react-router-dom"
-import "./Baseball.css"
+import "./Styling.css"
 //this module has the necessary details to render the details of each card when you click on their titles on the main page. 
 //then, you will be able to delete a card or edit an existing card.
 export const Details = () => {
@@ -11,10 +11,29 @@ const [cardObj, setCard] = useState({})
 const {cardId} = useParams();
 const history = useHistory();
 
+var sportName = [
+  {
+    "id": 1,
+    "title": "Baseball"
+  },
+  {
+    "id": 2,
+    "title": "Soccer"
+  },
+  {
+    "id": 3,
+    "title": "Basketball"
+  },
+  {
+    "id": 4,
+    "title": "Football"
+  }
+]
+
   const handleDelete = () => {
     deleteCard(cardObj.id)
       .then(() => {
-        history.push("/")
+        history.push("/baseball")
       })
   }
 
@@ -27,7 +46,7 @@ const history = useHistory();
     }, [])
 
   return (
-    <section className="baseball">
+    <section className="card">
       <h3 className="playerName">Player Name: {cardObj.playerName}</h3>
       <div className="teamName">Team Name: {cardObj.teamName}</div>
       <div className="year">Year: {cardObj.year}</div>
@@ -42,7 +61,7 @@ const history = useHistory();
       <button onClick={() => {
         history.push(`/sports/edit/${cardObj.id}`)
         }}>Edit Info</button>
-      <button onClick={() => {
+      <button onClick={() => { 
         history.push(`/`)
         }}>Back To Home</button>
 
