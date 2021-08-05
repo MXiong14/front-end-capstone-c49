@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams } from 'react-router-dom';
 import { CardsContext } from "../Provider/SportProvider"
 import { SportNameContext } from "../Provider/SportNameProvider";
-import "./Baseball.css"
+import "./Styling.css"
 
 export const Form = () => {
   const { addCard, getCardById, getCards, updateCards } = useContext(CardsContext)
@@ -39,6 +39,7 @@ export const Form = () => {
       "title": "Football"
     }
   ]
+
   useEffect(() => {
     getCards() 
     console.log(card)
@@ -96,6 +97,7 @@ export const Form = () => {
   // setArticle(newArticle)
 
   const handleSaveCard = (card) => {
+    {console.log(document.getElementById("sportNameId").value)}
     if (cardId) {
   updateCards ({
           id: card.id,
@@ -109,7 +111,8 @@ export const Form = () => {
           grade: card.grade,
           quantity: card.quantity,
           dateEntered: card.dateEntered,
-          imageURL: url
+          imageURL: url,
+          userId: parseInt(sessionStorage.getItem("kard_king_user"))
       }, cardId)
       .then(() => history.push(`/sports/detail/${cardId}`))
     } else {
@@ -125,11 +128,17 @@ export const Form = () => {
           grade: card.grade,
           quantity: card.quantity,
           dateEntered: card.dateEntered,
-          imageURL: url 
+          imageURL: url,
+          userId: parseInt(sessionStorage.getItem("kard_king_user"))
       })
-      .then(() => history.push("/"))
-    }
+      .then(() => {
+      let e = document.getElementById("sportNameId")
+      history.push(`/${e.options[e.selectedIndex].text}`)
+    })
+        
   }
+  }
+      
 
   useEffect(() => {
     getCards().then(() => {
@@ -159,7 +168,7 @@ export const Form = () => {
             defaultValue={card.playerName}/>
           </div>
         </fieldset>
-        <fieldset>
+        <fieldset> 
           <div className="form-group">
             <label htmlFor="sportLabel">Select A Sport: </label>
             <select value={card.sportNameTitle} name="sportNameId" id="sportNameId" className="form-control" onChange={handleControlledInputChange}>

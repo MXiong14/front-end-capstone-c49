@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { useHistory } from 'react-router-dom';
 import { CardsContext } from "../Provider/SportProvider"
 import { Card } from "./Card"
-import "./Baseball.css"
+import "./Styling.css"
 
 export const List = (props) => {
   const { cards, getCards } = useContext(CardsContext)
@@ -18,10 +18,10 @@ export const List = (props) => {
     <button onClick={() => {history.push("/sports/create")}}>
     Add Card To Your Collection
     </button>
-    <div className="baseballs">
+    <div className="cards">
       {
-        cards.map(element => {  
-          if (element.sportNameId === props.sportId)
+        cards.map(element => { {console.log(cards)}
+          if (element.sportNameId === props.sportId && element.userId == sessionStorage.getItem("kard_king_user"))
           {
             return <Card key={element.id} card={element} />
           }
