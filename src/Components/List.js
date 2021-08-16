@@ -20,7 +20,7 @@ export const List = (props) => {
     </button>
     <div className="cards">
       {
-        cards.map(element => { {console.log(cards)}
+        cards.map(element => {
           if (element.sportNameId === props.sportId && element.userId == sessionStorage.getItem("kard_king_user"))
           {
             return <Card key={element.id} card={element} />
