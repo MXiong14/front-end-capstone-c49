@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+ 
   }
   
   .card {
@@ -19,4 +20,16 @@
     max-width: 230px;
    max-height: 230px;
 
+  }
+
+  .cardDetail {
+    flex-direction: column;
+    justify-content: space-between;
+    border: 3px solid black;
+    margin: 1em;
+    padding: 1em;
+  }
+
+  body {
+    background-color: whitesmoke;
   }

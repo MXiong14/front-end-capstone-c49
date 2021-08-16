@@ -46,7 +46,7 @@ var sportName = [
     }, [])
 
   return (
-    <section className="card">
+    <section className="cardDetail">
       <h3 className="playerName">Player Name: {cardObj.playerName}</h3>
       <div className="teamName">Team Name: {cardObj.teamName}</div>
       <div className="year">Year: {cardObj.year}</div>

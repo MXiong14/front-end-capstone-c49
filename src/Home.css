@@ -2,5 +2,33 @@
     max-width: 250px;
    max-height: 250px;
    float: right;
-   margin-right: 350px;
+ margin-right: 100px;
+ 
 }
+
+.cardTitle {
+    text-align: center;
+  }
+
+.tableChart {
+    float: right;
+    margin-right: 150px;
+    margin-top: 70px;
+}
+
+  .bryce {
+max-width: 250px;
+max-height: 250px;
+}
+ 
+.x {
+    margin-top: 40px;
+    margin-left: 150px;
+}
+
+
+.copyright {
+    text-align: center;
+}
+
+
